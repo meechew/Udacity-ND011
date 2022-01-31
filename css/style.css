@@ -115,6 +115,11 @@
   padding: 20px;
 }
 
+.flex-bio {
+  display: flex;
+  flex-direction: column;
+}
+
 .flex-share {
   display: flex;
   flex-direction: row;
