@@ -13,6 +13,21 @@
   background-size: 100%;
 }
 
+h2 {
+  font-style: italic !important;
+}
+
+th {
+  color: orangered !important;
+  text-decoration: underline !important;
+}
+
+.normalize {
+  font-style: normal;
+  color: #fff;
+  text-decoration: none;
+}
+
 .container a:link {
   color: orangered;
 }
@@ -98,7 +113,6 @@
 
 .card h2 {
   color: orangered;
-  font-style: italic;
 }
 
 .footer {
