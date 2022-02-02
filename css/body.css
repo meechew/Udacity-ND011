@@ -1,0 +1,24 @@
+.body {
+  grid-area: mn;
+}
+
+.body h3 {
+  color: orangered;
+  font-style: italic;
+}
+
+.body img {
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.body figcaption {
+  font-style: italic;
+  text-align: center;
+}
+
+.flex-bio {
+  display: flex;
+  flex-direction: column;
+}

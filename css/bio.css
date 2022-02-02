@@ -1,0 +1,24 @@
+.side {
+  color: orangered;
+  grid-area: sd;
+}
+
+.side .author {
+}
+
+.side .title {
+}
+
+.side .org {
+}
+
+.side .bio {
+  color: white;
+}
+
+.avatar {
+  width: 125px;
+  margin: 10px;
+}
+
+

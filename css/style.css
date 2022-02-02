@@ -1,3 +1,7 @@
+@import "card.css";
+@import "bio.css";
+@import "body.css";
+
 .container {
   display: grid;
   grid-template-areas:
@@ -11,21 +15,6 @@
   );
   color: white;
   background-size: 100%;
-}
-
-h2 {
-  font-style: italic !important;
-}
-
-th {
-  color: orangered !important;
-  text-decoration: underline !important;
-}
-
-.normalize {
-  font-style: normal;
-  color: #fff;
-  text-decoration: none;
 }
 
 .container a:link {
@@ -42,96 +31,8 @@ th {
   font-size: xxx-large;
 }
 
-.side {
-  color: orangered;
-  grid-area: sd;
-}
-
-.side .author {
-}
-
-.side .title {
-}
-
-.side .org {
-}
-
-.side .bio {
-  color: white;
-}
-
-.avatar {
-  width: 125px;
-  margin: 10px;
-}
-
-.body {
-  grid-area: mn;
-}
-
-.body h3 {
-  color: orangered;
-  font-style: italic;
-}
-
-.body img {
-  width: 80%;
-  margin-left: 10%;
-  margin-right: 10%;
-}
-
-.body figcaption {
-  font-style: italic;
-  text-align: center;
-}
-
-.card {
-  grid-area: mn;
-  background: #00529C linear-gradient(
-    -64deg,
-    #E71A39 20%,
-    transparent 20%
-  );
-  box-shadow: 5px 5px 5px 5px #000;
-  width: 30%;
-  grid-template-areas:
-    "hd"
-    "ic"
-    "bt";
-}
-
-.card img {
-  grid-area: ic;
-  width: 80%;
-  margin-left: 10%;
-  margin-right: 10%;
-}
-
-.card h3 {
-  color: orangered;
-}
-
-.card h2 {
-  color: orangered;
-}
-
 .footer {
   grid-area: ft;
-}
-
-.card button {
-  grid-area: bt;
-  background: dimgrey;
-  color: orangered;
-  font-style: italic;
-  font-size: x-large;
-  width: 100%;
-  padding: 20px;
-}
-
-.flex-bio {
-  display: flex;
-  flex-direction: column;
 }
 
 .flex-share {

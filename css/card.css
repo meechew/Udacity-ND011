@@ -1,0 +1,40 @@
+.card {
+  grid-area: mn;
+  background: #00529C linear-gradient(
+    -64deg,
+    #E71A39 20%,
+    transparent 20%
+  );
+  box-shadow: 5px 5px 5px 5px #000;
+  width: 30%;
+  grid-template-areas:
+    "hd"
+    "ic"
+    "bt";
+}
+
+.card img {
+  grid-area: ic;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.card h3 {
+  color: orangered;
+}
+
+.card h2 {
+  color: orangered;
+  font-style: italic;
+}
+
+.card button {
+  grid-area: bt;
+  background: dimgrey;
+  color: orangered;
+  font-style: italic;
+  font-size: x-large;
+  width: 100%;
+  padding: 20px;
+}
