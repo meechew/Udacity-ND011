@@ -1,12 +1,13 @@
 .card {
   grid-area: mn;
+  display: grid;
   background: #00529C linear-gradient(
     -64deg,
     #E71A39 20%,
     transparent 20%
   );
   box-shadow: 5px 5px 5px 5px #000;
-  width: 30%;
+  width: 60%;
   grid-template-areas:
     "hd"
     "ic"
