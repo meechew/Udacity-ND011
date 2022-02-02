@@ -130,5 +130,19 @@
   padding: 5px;
 }
 
+.home {
+  position: absolute;
+  right: 8px;
+  color: orangered;
+}
 
+.home a:link {
+  color: orangered;
+  text-decoration: none;
+}
+
+.home a:visited {
+  color: orangered;
+  text-decoration: none;
+}
 
