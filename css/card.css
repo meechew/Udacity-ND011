@@ -7,7 +7,7 @@
     transparent 20%
   );
   box-shadow: 5px 5px 5px 5px #000;
-  width: 60%;
+  width: 90%;
   grid-template-areas:
     "hd"
     "ic"
