@@ -39,7 +39,9 @@
 */
 
 // build the nav
+async function nav_menu() {
 
+}
 
 // Add class 'active' to section when near top of viewport
 
