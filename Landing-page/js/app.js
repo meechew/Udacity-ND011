@@ -39,9 +39,13 @@
 */
 
 // build the nav
-async function nav_menu() {
 
-}
+    const sections = document.getElementsByTagName("section");
+    const NavList = document.getElementById("navbar__list");
+    sections.forEach(function (e) {
+        const li = document.createElement("li");
+
+    })
 
 // Add class 'active' to section when near top of viewport
 
