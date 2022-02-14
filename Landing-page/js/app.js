@@ -40,12 +40,15 @@
 
 // build the nav
 
+    window.onload = (event) => {
     const sections = document.getElementsByTagName("section");
     const NavList = document.getElementById("navbar__list");
-    sections.forEach(function (e) {
+    for(e in sections) {
         const li = document.createElement("li");
-
-    })
+        li.appendChild(document.createTextNode(sections[e].dataset['nav']));
+        li.style.color = "#000D3C";
+        NavList.appendChild(li);
+    }};
 
 // Add class 'active' to section when near top of viewport
 
