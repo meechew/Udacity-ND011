@@ -45,8 +45,11 @@
     const NavList = document.getElementById("navbar__list");
     for(e in sections) {
         const li = document.createElement("li");
-        li.appendChild(document.createTextNode(sections[e].dataset['nav']));
-        li.style.color = "#000D3C";
+        const a = document.createElement('a');
+        a.appendChild(document.createTextNode(sections[e].dataset['nav']));
+        a.style.color = "#000D3C";
+        a.setAttribute('href', '#' + sections[e].id);
+        li.appendChild(a);
         NavList.appendChild(li);
     }};
 
