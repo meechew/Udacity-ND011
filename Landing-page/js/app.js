@@ -22,14 +22,19 @@
  * Define Global Variables
  * 
 */
+window.onload = () => {
 
-
+    const sections = document.getElementsByTagName("section");
+    const NavList = document.getElementById("navbar__list");
 /**
  * End Global Variables
  * Start Helper Functions
  * 
 */
-
+    function inView(e) {
+        let bounds = e.getBoundingClientRect();
+        return bounds.top >= 0 && bounds.bottom <= (window.innerHeight || document. documentElement.clientHeight);
+    }
 
 
 /**
@@ -39,25 +44,23 @@
 */
 
 // build the nav
-
-    window.onload = (event) => {
-    const sections = document.getElementsByTagName("section");
-    const NavList = document.getElementById("navbar__list");
-    for(e in sections) {
+    for(let e in sections) {
+        if (e === "length") break;
         const li = document.createElement("li");
-        const a = document.createElement('a');
-        a.appendChild(document.createTextNode(sections[e].dataset['nav']));
-        a.style.color = "#000D3C";
-        a.setAttribute('href', '#' + sections[e].id);
-        li.appendChild(a);
-        NavList.appendChild(li);
-    }};
-
+        li.appendChild(document.createTextNode(sections[e].getAttribute('data-nav')));
+        li.style.color = "#000D3C";
+        li.setAttribute('data-target', sections[e].id)
 // Add class 'active' to section when near top of viewport
-
+    function makeElementActive(ele) {
+        inView(document.getElementById(ele.getAttribute('data-target')))?
+                ele.classList.add('active') : ele.classList.remove('active');
+    }
 
 // Scroll to anchor ID using scrollTO event
-
+    function scrollTo(id) {
+        const dest = document.getElementById(id);
+        dest.scrollIntoView()
+    }
 
 /**
  * End Main Functions
@@ -65,10 +68,18 @@
  * 
 */
 
-// Build menu 
 
 // Scroll to section on link click
+        li.addEventListener('click', function () {
+            //li.classList.add('active')
+            scrollTo(this.getAttribute('data-target'))
+        });
 
 // Set sections as active
+        window.addEventListener('scroll', function () {
+            makeElementActive(li)
+        });
 
-
+// Build menu
+        NavList.appendChild(li);
+}};
