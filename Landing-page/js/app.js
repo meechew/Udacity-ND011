@@ -31,6 +31,8 @@ window.onload = () => {
  * Start Helper Functions
  * 
 */
+
+    // Return if element (e) is in viewport
     function inView(e) {
         let bounds = e.getBoundingClientRect();
         if (e.nextElementSibling == null) return bounds.top <= 0;
@@ -72,7 +74,6 @@ window.onload = () => {
 
 // Scroll to section on link click
         li.addEventListener('click', function () {
-            //li.classList.add('active')
             scrollTo(this.getAttribute('data-target'))
         });
 
