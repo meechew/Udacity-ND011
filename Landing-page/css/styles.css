@@ -71,7 +71,13 @@ section {
 }
 
 .navbar__menu li {
+    color: #000D3C;
     display: inline-block;
+}
+
+.navbar__menu .active {
+    color: #FFF;
+    background: #000D3C;
 }
 
 .navbar__menu .menu__link {

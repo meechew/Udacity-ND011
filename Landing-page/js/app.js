@@ -33,7 +33,8 @@ window.onload = () => {
 */
     function inView(e) {
         let bounds = e.getBoundingClientRect();
-        return bounds.top >= 0 && bounds.bottom <= (window.innerHeight || document. documentElement.clientHeight);
+        if (e.nextElementSibling == null) return bounds.top <= 0;
+        else return bounds.top >= 0 && bounds.bottom <= (window.innerHeight || document. documentElement.clientHeight);
     }
 
 
@@ -48,8 +49,8 @@ window.onload = () => {
         if (e === "length") break;
         const li = document.createElement("li");
         li.appendChild(document.createTextNode(sections[e].getAttribute('data-nav')));
-        li.style.color = "#000D3C";
         li.setAttribute('data-target', sections[e].id)
+
 // Add class 'active' to section when near top of viewport
     function makeElementActive(ele) {
         inView(document.getElementById(ele.getAttribute('data-target')))?
