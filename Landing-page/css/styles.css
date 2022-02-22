@@ -55,6 +55,12 @@ main {
     padding-top: 3em;
 }
 
+main img {
+    padding-left: 5%;
+    padding-right: 5%;
+    width: 90%;
+}
+
 section {
     position: relative;
     min-height: 80vh;
