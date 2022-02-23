@@ -41,7 +41,6 @@ window.onload = () => {
             (window.innerHeight || document.documentElement.clientHeight);
     }
 
-
     /**
      * End Helper Functions
      * Begin Main Functions
