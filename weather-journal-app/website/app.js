@@ -7,15 +7,33 @@ let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
 // Event listener to add function to existing HTML DOM element
 document.getElementById('generate').addEventListener('click', generate)
+
 /* Function called by event listener */
 function generate() {
-
+    postInput('api.openweathermap.org/data/2.5/weather?zip='
+        + document.getElementById("zip").value,
+        {'date': newDate, 'feel': document.getElementById('feelings').value});
 }
 
 /* Function to GET Web API Data*/
 
 /* Function to POST data */
-
+const postInput = async (url='', data = {}) => {
+    const response = await fetch(url,{
+        method: 'POST',
+        headers: {
+            'apiKey': apiKey
+        },
+        body: JSON.stringify(data)
+    });
+    try {
+        const newData = await response.json();
+        console.log(newData);
+        return newData;
+    }catch(error) {
+        console.log("error", error);
+    }
+}
 
 /* Function to GET Project Data */
 const retrieveData = async () =>{

@@ -36,9 +36,8 @@ window.onload = () => {
     // Return if element (e) is in viewport
     function inView(e) {
         let bounds = e.getBoundingClientRect();
-        if (e.nextElementSibling == null) return bounds.top <= 0;
-        else return bounds.top >= 0 && bounds.bottom <=
-            (window.innerHeight || document.documentElement.clientHeight);
+        return bounds.top >= 0 && bounds.bottom <=
+            (window.innerHeight || document. documentElement.clientHeight);
     }
 
     /**
@@ -56,8 +55,14 @@ window.onload = () => {
 
         // Add class 'active' to section when near top of viewport
         function makeElementActive(ele) {
-            inView(document.getElementById(ele.getAttribute('data-target'))) ?
-                ele.classList.add('active') : ele.classList.remove('active');
+            if (inView(document.getElementById(ele.getAttribute('data-target')))) {
+                    ele.classList.add('active')
+                    document.getElementById(ele.getAttribute('data-target')).classList.add('your-active-class')
+                }
+            else {
+                ele.classList.remove('active');
+                document.getElementById(ele.getAttribute('data-target')).classList.remove('your-active-class')
+            }
         }
 
         // Scroll to anchor ID using scrollTO event
@@ -76,7 +81,7 @@ window.onload = () => {
         // Scroll to section on link click
         li.addEventListener('click', function (event) {
             event.preventDefault();
-            scrollTo(this.getAttribute('data-target'))
+            scrollTo(this.getAttribute('data-target'), behavior='smooth')
         });
 
         // Set sections as active
