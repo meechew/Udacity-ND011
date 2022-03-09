@@ -26,11 +26,13 @@ const port = 8000;
 const server = app.listen(port, ()=>{console.log(`running on localhost: ${port}`)});
 
 // GET method route
-app.get('/website', (request, response)=> {
+app.get('/weather', (request, response)=> {
+    console.log("GET /weather" + projectData);
     response.send(projectData);
 });
 
 // POST method route
-app.post('/website', (req, res)=> {
-    res.send('POST received');
+app.post('/weather', (request, response)=> {
+    console.log("POST /weather" + projectData);
+    response.send(projectData);
 })
