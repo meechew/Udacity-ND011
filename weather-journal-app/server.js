@@ -27,13 +27,15 @@ app.listen(port, ()=>{console.log(`running on localhost: ${port}`)});
 
 // GET method route
 app.get('/weather', (request, response)=> {
-    console.log("GET /weather" + projectData.toString());
+    console.log("POST /weather " + "{content:" + projectData.content + ",date:" +
+        projectData.date + "temp:" + projectData.temp + "}");
     response.send(projectData);
 });
 
 // POST method route
 app.post('/weather', (request, response)=> {
     projectData = request.body;
-    console.log("POST /weather" + projectData.toString());
+    console.log("POST /weather " + "{content:" + projectData.content + ",date:" +
+        projectData.date + "temp:" + projectData.temp + "}");
     response.send(projectData);
 })
