@@ -2,8 +2,9 @@
 const apiKey = '99a955eec0bf6c11f9bd59137f6b3473&units=imperial';
 
 // Create a new date instance dynamically with JS
+const month = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","Aug","SEP","OCT","NOV","DEC"];
 let d = new Date();
-let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+let newDate = ('0'+ d.getDate()).slice(-2) +  month[d.getMonth()] + d.getFullYear().toString().slice(-2);
 
 // Event listener to add function to existing HTML DOM element
 document.getElementById('generate').addEventListener('click', generate)
