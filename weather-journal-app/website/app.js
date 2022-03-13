@@ -11,14 +11,14 @@ document.getElementById('generate').addEventListener('click', generate)
 /* Function called by event listener */
 async function generate() {
     const weather = await getTemp('https://api.openweathermap.org/data/2.5/weather',
-        zip = document.getElementById("zip").value + ',us'
+        document.getElementById("zip").value + ',us'
     )
-    data = {
+    let data = {
         content: document.getElementById("feelings").value,
         date: newDate,
         temp: weather.main.temp
     };
-    postInput('/website', data);
+    postInput('/weather', data);
     retrieveData();
 }
 
@@ -64,7 +64,7 @@ const retrieveData = async () => {
         const allData = await request.json()
         console.log(allData)
         // Write updated data to DOM elements
-        document.getElementById('temp').innerHTML = Math.round(allData.temp)+ 'degrees';
+        document.getElementById('temp').innerHTML = Math.round(allData.temp)+ ' degrees';
         document.getElementById('content').innerHTML = allData.content;
         document.getElementById('date').innerHTML = allData.date;
     }

@@ -23,16 +23,17 @@ app.use(express.static('website'));
 
 const port = 8000;
 // Setup Server
-const server = app.listen(port, ()=>{console.log(`running on localhost: ${port}`)});
+app.listen(port, ()=>{console.log(`running on localhost: ${port}`)});
 
 // GET method route
 app.get('/weather', (request, response)=> {
-    console.log("GET /weather" + projectData);
+    console.log("GET /weather" + projectData.toString());
     response.send(projectData);
 });
 
 // POST method route
 app.post('/weather', (request, response)=> {
-    console.log("POST /weather" + projectData);
+    projectData = request.body;
+    console.log("POST /weather" + projectData.toString());
     response.send(projectData);
 })
