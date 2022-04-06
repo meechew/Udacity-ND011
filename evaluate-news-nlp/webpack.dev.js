@@ -1,10 +1,12 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebPackPlugin = require("html-webpack-plugin")
+const HtmlWebpackRoutesPlugin = require('html-webpack-routes-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const {resolve} = require("@babel/core/lib/vendor/import-meta-resolve")
 
 module.exports = {
-    entry: './src/client/index.js',
+    entry: path.resolve(__dirname,'./src/client/index.js'),
     mode: 'development',
     devtool: 'source-map',
     stats: 'verbose',
@@ -18,6 +20,10 @@ module.exports = {
                 test: '/\.js$/',
                 exclude: /node_modules/,
                 loader: "babel-loader"
+            },
+            {
+                test: /\.scss$/,
+                use: ["style-loader", "css-loader", "sass-loader"],
             }
         ]
     },

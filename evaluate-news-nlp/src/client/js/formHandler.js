@@ -1,4 +1,4 @@
-function handleSubmit(event) {
+async function handleSubmit(event) {
     event.preventDefault()
 
     // check what text was put into the form field
@@ -6,7 +6,15 @@ function handleSubmit(event) {
     Client.checkForName(formText)
 
     console.log("::: Form Submitted :::")
-    fetch('http://localhost:8080/test')
+    await fetch('http://localhost:8080/tone', {
+        method: 'POST',
+        credentials: 'same-origin',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+            'input': 'formText'
+        }
+    })
     .then(res => res.json())
     .then(function(res) {
         document.getElementById('results').innerHTML = res.message
