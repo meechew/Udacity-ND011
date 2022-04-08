@@ -1,15 +1,18 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebPackPlugin = require("html-webpack-plugin")
-const HtmlWebpackRoutesPlugin = require('html-webpack-routes-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const {resolve} = require("@babel/core/lib/vendor/import-meta-resolve")
+const WorkboxPlugin = require('workbox-webpack-plugin')
 
 module.exports = {
     entry: path.resolve(__dirname,'./src/client/index.js'),
     mode: 'development',
     devtool: 'source-map',
     stats: 'verbose',
+    devServer: {
+        host: 'localhost',
+        port: 8086
+    },
     output: {
         libraryTarget: 'var',
         library: 'Client'
@@ -40,6 +43,7 @@ module.exports = {
             // Automatically remove all unused webpack assets on rebuild
             cleanStaleWebpackAssets: true,
             protectWebpackAssets: false
-        })
+        }),
+        new WorkboxPlugin.GenerateSW()
     ]
 }

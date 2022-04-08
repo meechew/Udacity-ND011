@@ -21,7 +21,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
 // designates what port the app will listen to for incoming requests
-const port = 8080;
+const port = 8086;
 app.listen(port, ()=>{console.log(`running on localhost: ${port}`)});
 
 app.get('/', function (req, res) {
@@ -32,7 +32,7 @@ app.get('/app', function (req, res) {
     res.sendFile(path.resolve('src/client/index.js'))
 })
 
-app.get('/tone', (req, res) => {
+app.get('/api', (req, res) => {
     console.log('GET /tone URL:' + req.query['input']);
     res.send(mockAPIResponse);
 })

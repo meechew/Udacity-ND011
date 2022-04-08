@@ -6,7 +6,7 @@ async function handleSubmit(event) {
     Client.checkForName(formText)
 
     console.log("::: Form Submitted :::")
-    await fetch('http://localhost:8080/tone', {
+    await fetch('http://localhost:8086/api', {
         method: 'POST',
         credentials: 'same-origin',
         mode: 'cors',
