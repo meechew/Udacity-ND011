@@ -6,13 +6,12 @@ async function handleSubmit(event) {
     Client.checkForName(formText)
 
     console.log("::: Form Submitted :::")
-    await fetch('http://localhost:8086/api', {
+    await fetch('http://localhost:8086/api?input=' + formText, {
         method: 'POST',
         credentials: 'same-origin',
         mode: 'cors',
         headers: {
-            'Content-Type': 'application/json',
-            'input': 'formText'
+            'Content-Type': 'application/json'
         }
     })
     .then(res => res.json())

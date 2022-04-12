@@ -5,7 +5,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const WorkboxPlugin = require('workbox-webpack-plugin')
 
 module.exports = {
-    entry: path.resolve(__dirname,'./src/client/index.js'),
+    entry: './src/client/index.js',
     mode: 'development',
     devtool: 'source-map',
     stats: 'verbose',
@@ -25,8 +25,12 @@ module.exports = {
                 loader: "babel-loader"
             },
             {
-                test: /\.scss$/,
-                use: ["style-loader", "css-loader", "sass-loader"],
+                test: /\.css$/,
+                use: ["style-loader", "css-loader", "scss-loader"],
+            },
+            {
+                test: /\.png$/,
+                use: 'image-webpack-loader'
             }
         ]
     },

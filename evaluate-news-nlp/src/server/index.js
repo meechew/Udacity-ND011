@@ -1,12 +1,9 @@
-const path = require('path');
 const express = require('express')
-const dotenv = require('dotenv');
+const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-dotenv.config();
 const meaningCloud = require('meaning-cloud');
-const apikey = process.env.API_KEY;
-const api = new meaningCloud({key:  apikey})
+import { APIcall } from './APIcall.js';
 
 const mockAPIResponse = require('./mockAPI.js')
 
@@ -24,17 +21,27 @@ app.use(bodyParser.urlencoded({ extended: false }))
 const port = 8086;
 app.listen(port, ()=>{console.log(`running on localhost: ${port}`)});
 
-app.get('/', function (req, res) {
-    res.sendFile(path.resolve('src/client/views/index.html'))
+app.get('/', (req, res) => {
+    console.log('GET /');
+    res.sendFile(path.resolve('dist/index.html'))
 })
 
-app.get('/app', function (req, res) {
-    res.sendFile(path.resolve('src/client/index.js'))
+app.get('/logo', (req, res) => {
+    console.log('GET /logo');
+    res.sendFile(path.resolve('src/client/img/Sentinel.png'))
 })
 
-app.get('/api', (req, res) => {
-    console.log('GET /tone URL:' + req.query['input']);
-    res.send(mockAPIResponse);
+app.get('/styles/*.css', (req, res) => {
+    console.log('GET /style URL:' + req.path);
+    res.sendFile(path.resolve('src/client/' + req.path));
+})
+
+app.get('/api', async (req, res) => {
+    console.log('GET /api URL:' + req.query['input']);
+
+
+    mockAPIResponse.input = req.query['input'];
+    res.send(await APIcall(req.query['input']));
 })
 
 
