@@ -3,10 +3,9 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const meaningCloud = require('meaning-cloud');
-import { APIcall } from './APIcall.js';
-
+const APIcall = require('./APIcall.js');
 const mockAPIResponse = require('./mockAPI.js')
-
+//import { APIcall } from './APIcall.js'
 const app = express()
 
 app.use(express.static('dist'))
@@ -38,10 +37,8 @@ app.get('/styles/*.css', (req, res) => {
 
 app.get('/api', async (req, res) => {
     console.log('GET /api URL:' + req.query['input']);
-
-
-    mockAPIResponse.input = req.query['input'];
-    res.send(await APIcall(req.query['input']));
+    const api = new APIcall(req.query['input']);
+    res.send(await api.call());
 })
 
 
