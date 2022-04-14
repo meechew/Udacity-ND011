@@ -13,6 +13,6 @@ logo.src = Logo;
 const logoElm = document.getElementById('Logo');
 logoElm.appendChild(logo); */
 
-console.log(checkForName);
+//console.log(checkForName);
 
 alert("Sentinel online");
