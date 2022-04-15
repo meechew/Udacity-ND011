@@ -1,5 +1,5 @@
-function checkForName(inputText) {
+function checkForURL(inputText) {
     return inputText.search(/(http:\/\/|https:\/\/)/i);
 }
 
-export { checkForName }
+export { checkForURL }

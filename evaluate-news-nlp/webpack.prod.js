@@ -18,17 +18,13 @@ module.exports = {
     module: {
         rules: [
             {
-                test: '/\.js$/',
+                test: /\.js$/i,
                 exclude: /node_modules/,
                 loader: "babel-loader"
             },
             {
-                test: '/\.css$/',
+                test: /\.css$/i,
                 use: [ "style-loader", 'css-loader', 'scss-loader' ]
-            },
-            {
-                test: /\.png$/,
-                use: 'image-webpack-loader'
             }
         ]
     },

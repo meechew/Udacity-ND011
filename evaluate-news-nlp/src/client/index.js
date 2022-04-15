@@ -1,9 +1,9 @@
-import { checkForName } from './js/nameChecker'
+import { checkForURL } from './js/urlChecker'
 import { handleSubmit } from './js/formHandler'
 //import Logo from './img/Sentinel.png'
 
 export {
-    checkForName,
+    checkForURL,
     handleSubmit
 }
 
@@ -15,4 +15,4 @@ logoElm.appendChild(logo); */
 
 //console.log(checkForName);
 
-alert("Sentinel online");
+//alert("Sentinel online");

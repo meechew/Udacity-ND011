@@ -1,0 +1,60 @@
+import  { checkForURL } from "../client"
+import  { handleSubmit } from "../client"
+import { buildChild } from "../client/js/BuildChild";
+require("babel-polyfill");
+
+
+describe("Testing truthiness of string input", () => {
+    test("Testing checkForURL() for valid URL", () => {
+        expect(checkForURL('http://')).toBeFalsy();
+        expect(checkForURL('HTTP://')).toBeFalsy();
+        expect(checkForURL('https://')).toBeFalsy();
+        expect(checkForURL('HTTPS://')).toBeFalsy();
+    });
+    test("Testing checkForURL() for invalid URL", () => {
+        for(let k = 0; k < 5 ; ++k ) {
+            expect(checkForURL(Math.random().toString(36).slice(2, 7))).toBeTruthy();
+        }
+    });
+});
+
+describe("Testing submission of forms", () => {
+    test("Testing handleSubmit() sad path", () => {
+        const refBody = '<input id="name" type="text" name="input" value="">';
+        document.body.innerHTML = refBody;
+        expect(handleSubmit);
+        expect(document.body.innerHTML).toBe(refBody);
+    });
+    test("Testing handleSubmit() Happy path", async () => {
+        const refBody = '<input id="name" type="text" name="input" value="https://www.infoq.com/articles/testing-legacy-nodejs-app/">';
+        document.body.innerHTML = refBody;
+        await expect(handleSubmit()
+            .then(expect(document.body.innerHTML).not.toBe(refBody)));
+    });
+});
+
+describe("Testing testing JSON package interpretation and build of result elements", () => {
+    test("Testing buildChild()", () => {
+        const dom = new Document();
+        const testPackage = {
+            agreement: 'DISAGREEMENT',
+            confidence: '94',
+            irony: 'NONIRONIC',
+            model: 'general_en',
+            score_tag: 'P',
+            sentence_list: [],
+            sentimented_entity_list: [],
+            status: { code: '0', msg: 'OK', credits: '1', remaining_credits: '19937' },
+            subjectivity: 'SUBJECTIVE'
+        }
+
+        const refElm = '<div id="results"><div>Argeement: DISAGREEMENT<br>Irony: NONIRONIC<br>Model: general_en<br>Score_tag: P<br>Subjectivity: SUBJECTIVE</div></div>';
+        document.body.innerHTML = '<div id="results"></div>';
+
+        buildChild(testPackage);
+        expect(document.body.innerHTML).toBe(refElm);
+    })
+});
+
+
+

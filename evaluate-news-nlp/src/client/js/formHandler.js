@@ -1,11 +1,12 @@
 import { buildChild } from "./BuildChild";
+import { checkForURL } from "./urlChecker";
 
 async function handleSubmit(event) {
     event.preventDefault()
 
     // check what text was put into the form field
     let formText = document.getElementById('name').value
-    if (Client.checkForName(formText)) {
+    if (checkForURL(formText)) {
         alert('Please enter URL');
         return;
     }
@@ -22,8 +23,9 @@ async function handleSubmit(event) {
     .then(res => res.json())
     .then(function(res) {
         buildChild(res)
-        //document.getElementById('results').innerHTML = res.message
-    })//.then(res => console.log(res))
+    }).catch((error) => {
+            console.log(error)
+        });
 }
 
 
