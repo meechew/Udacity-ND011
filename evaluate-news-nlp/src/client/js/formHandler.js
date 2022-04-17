@@ -21,10 +21,10 @@ async function handleSubmit(event) {
         }
     })
     .then(res => res.json())
-    .then(function(res) {
-        buildChild(res)
+    .then(res => {
+        buildChild(res);
     }).catch((error) => {
-            console.log(error)
+            console.log(error);
         });
 }
 

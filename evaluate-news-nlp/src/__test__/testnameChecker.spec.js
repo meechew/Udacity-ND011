@@ -19,17 +19,27 @@ describe("Testing truthiness of string input", () => {
 });
 
 describe("Testing submission of forms", () => {
-    test("Testing handleSubmit() sad path", () => {
+    const event = { preventDefault: () => {} };
+
+    test("Testing handleSubmit() sad path", async () => {
         const refBody = '<input id="name" type="text" name="input" value="">';
         document.body.innerHTML = refBody;
-        expect(handleSubmit);
-        expect(document.body.innerHTML).toBe(refBody);
+        try {
+            await handleSubmit()
+                .then( () => {
+                expect(document.body.innerHTML).toBe(refBody);
+            })
+        } catch (e) {}
     });
     test("Testing handleSubmit() Happy path", async () => {
         const refBody = '<input id="name" type="text" name="input" value="https://www.infoq.com/articles/testing-legacy-nodejs-app/">';
         document.body.innerHTML = refBody;
-        await expect(handleSubmit()
-            .then(expect(document.body.innerHTML).not.toBe(refBody)));
+        try {
+            await handleSubmit()
+                .then( () => {
+                    expect(document.body.innerHTML).not.toBe(refBody);
+                })
+        } catch (e) {}
     });
 });
 
