@@ -1,6 +1,7 @@
-import  { checkForURL } from "../client"
-import  { handleSubmit } from "../client"
+import  { checkForURL } from "../client";
+import  { handleSubmit } from "../client";
 import { buildChild } from "../client/js/BuildChild";
+const APIcall = require('../server/APIcall.js');
 require("babel-polyfill");
 
 
@@ -66,5 +67,21 @@ describe("Testing testing JSON package interpretation and build of result elemen
     })
 });
 
+describe("Testing API call to Meaning cloud", () => {
+    test("Testing dummy call()", async () => {
+        const mockAPIcall = new APIcall("");
+        const refBody = {
+            status: {
+                code: "200",
+                msg: "missing required parameter(s): txt, url or doc",
+                credits: "0"
+            }
+        }
 
+        try {
+            const response = await mockAPIcall.call()
+                .then(response => expect(response).tobe(refBody))
+        } catch (e) {}
+    })
+});
 

@@ -2,10 +2,7 @@ const express = require('express')
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const meaningCloud = require('meaning-cloud');
 const APIcall = require('./APIcall.js');
-const mockAPIResponse = require('./mockAPI.js')
-//import { APIcall } from './APIcall.js'
 const app = express()
 
 app.use(express.static('dist'))
