@@ -15,6 +15,7 @@ app.use(bodyParser.json());
 
 // Cors for cross origin allowance
 const cors = require('cors');
+const path = require("path");
 app.use(cors());
 
 // Initialize the main project folder
@@ -26,6 +27,18 @@ const port = 8086;
 app.listen(port, ()=>{console.log(`running on localhost: ${port}`)});
 
 // GET method route
+
+app.get('/', (req, res) => {
+    console.log('GET /');
+    res.sendFile(path.resolve('dist/index.html'))
+})
+
+app.get('/api', async (req, res) => {
+    console.log('GET /api URL: ${req.query["input"]} ${req.query["date"]}' );
+    const api = new APIcall(req.query['input'], req.query["date"]);
+    res.send(await api.call());
+})
+
 app.get('/weather', (request, response)=> {
     console.log("POST /weather " + "{content:" + projectData.content + ",date:" +
         projectData.date + "temp:" + projectData.temp + "}");
