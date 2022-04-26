@@ -10,26 +10,13 @@ const pixakey = process.env.PIXA_KEY;
 class APIcall {
 
     constructor(input, date) {
-        this.geoForm = new FormData();
-        this.geoForm.append('key', geoUser);
-        this.geoForm.append('lang', 'en');
-        this.geoForm.append('input', input);
-
-        this.weatherForm = new FormData();
-        this.weatherForm.append('key', wthrkey);
-        this.weatherForm.append('lang', 'en');
-        this.weatherForm.append('url', input);
-
-        this.pixaForm = new FormData();
-        this.pixaForm.append('key', pixakey);
-        this.pixaForm.append('lang', 'en');
-        this.pixaForm.append('url', input);
-
-        this.date = date;
+        this.package = {};
+        this.package.input = input;
+        this.package.date = date;
 
         async function geoCall() {
             let url = 'http://api.geonames.org/postalCodeSearchJSON?placename=' +
-                '${input}&username=${geoUser}&maxRows=1';
+                `${this.input}&username=${geoUser}&maxRows=1`;
             const response = await fetch(url, {
                 method: 'GET',
             })
@@ -45,9 +32,9 @@ class APIcall {
             return response;
         }
 
-        async function wthrCall(data) {
+        async function wthrCall() {
             let url = 'https://api.weatherbit.io/v2.0/current?' +
-                'lat=${data["lat"]}&lon=-${data["lng"}&key=${wthrkey}';
+                `lat=${this.package.lat}&lon=-${this.package.lon}&key=${wthrkey}`;
             const response = await fetch(url, {
                 method: 'GET',
             })
@@ -63,9 +50,9 @@ class APIcall {
             return response;
         }
 
-        async function pixaCall(data) {
-            let url = 'https://api.weatherbit.io/v2.0/current?' +
-                'q=${data["placeName"]}&key=${pixakey}';
+        async function pixaCall() {
+            let url = 'https://pixabay.com/api/?' +
+                `q=${this.package.placeName}&key=${pixakey}`;
             const response = await fetch(url, {
                 method: 'GET',
             })
@@ -82,29 +69,23 @@ class APIcall {
 
         }
 
-        this.call = async function() {
+        function setData(data) {
+            this.package.lat = data['postalCodes'][0]['lat'];
+            this.package.lon = data['postalCodes'][0]['lng'];
+            this.package.placeName = data['postalCodes'][0]['placeName'];
+        }
 
-            await geoCall()
-                .then(data => wthrCall())
-
-            const response = await fetch("https://api.meaningcloud.com/sentiment-2.1", {
-                method: 'POST',
-                body: this.form,
-                redirect: 'follow'
-            })
+        this.getGeo = async function() {
             try {
-                const data = await response.json();
-                console.log(data);
-                return data;
-            }
-            catch(error) {
-                console.log('error', error);
+                await geoCall()
+                    .then(data => setData(data))
+            } catch (e) {
+                console.log(`error: ${e}`);
             }
 
-            return response;
+            return this.package;
         }
     }
-
 }
 
 module.exports = APIcall;
