@@ -28,22 +28,64 @@ class APIcall {
         this.date = date;
 
         async function geoCall() {
-            let url = 'http://api.geonames.org/postalCodeSearch?placename=' +
-                '${input}&username=${geoUser}';
+            let url = 'http://api.geonames.org/postalCodeSearchJSON?placename=' +
+                '${input}&username=${geoUser}&maxRows=1';
             const response = await fetch(url, {
-                method: 'POST',
+                method: 'GET',
             })
+            try {
+                const data = await response.json();
+                console.log(data);
+                return data;
+            }
+            catch(error) {
+                console.log('error', error);
+            }
 
+            return response;
         }
 
-        async function wthrCall() {
+        async function wthrCall(data) {
+            let url = 'https://api.weatherbit.io/v2.0/current?' +
+                'lat=${data["lat"]}&lon=-${data["lng"}&key=${wthrkey}';
+            const response = await fetch(url, {
+                method: 'GET',
+            })
+            try {
+                const data = await response.json();
+                console.log(data);
+                return data;
+            }
+            catch(error) {
+                console.log('error', error);
+            }
 
+            return response;
         }
-        async function pixaCall() {
+
+        async function pixaCall(data) {
+            let url = 'https://api.weatherbit.io/v2.0/current?' +
+                'q=${data["placeName"]}&key=${pixakey}';
+            const response = await fetch(url, {
+                method: 'GET',
+            })
+            try {
+                const data = await response.json();
+                console.log(data);
+                return data;
+            }
+            catch(error) {
+                console.log('error', error);
+            }
+
+            return response;
 
         }
 
         this.call = async function() {
+
+            await geoCall()
+                .then(data => wthrCall())
 
             const response = await fetch("https://api.meaningcloud.com/sentiment-2.1", {
                 method: 'POST',
