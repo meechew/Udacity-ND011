@@ -33,23 +33,31 @@ app.get('/', (req, res) => {
     res.sendFile(path.resolve('dist/index.html'))
 })
 
+const APIcall = require('./APIcall.js');
 // GET geo data
 app.get('/apiGeo', async (req, res) => {
-    console.log(`GET /apiGeo URL: ${req.query["input"]} ${req.query["date"]}` );
-    const api = new APIcall(req.query['input'], req.query["date"]);
+    console.log(`GET /apiGeo contents:
+    --input: ${req.query["input"]} 
+    --date:  ${req.query["date"]}` );
+    const api = new APIcall(req.query['input'], req.query['date']);
     res.send(await api.getGeo());
 })
 
 // GET weather
 app.get('/apiWeather', async (req, res) => {
-    console.log(`GET /weather content: ${req.query["input"]} ${req.query["date"]}`);
-    const api = new APIcall(req.query['input'], req.query["date"]);
-    res.send(await api.getGeo());
+    console.log(`GET /weather contents: 
+    --lat:   ${req.query["lat"]} 
+    --lon:   ${req.query["lon"]} 
+    --date:  ${req.query["date"]}`);
+    const api = new APIcall('input', req.query['date']);
+    res.send(await api.getWthr(req.query["lat"], req.query["lat"]));
 });
 
 // GET Pix
 app.get('/apiPixa', async (req, res) => {
-    console.log(`GET /weather content: ${req.query["input"]} ${req.query["date"]}`);
-    const api = new APIcall(req.query['input'], req.query["date"]);
-    res.send(await api.getGeo());
+    console.log(`GET /weather contents:
+    --input: ${req.query["input"]} 
+    --date:  ${req.query["date"]}` );
+    const api = new APIcall(req.query['input'], req.query['date']);
+    res.send(await api.getPix());
 });

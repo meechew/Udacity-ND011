@@ -1,5 +1,32 @@
 import { buildChild } from "./BuildChild";
 
+async function submitPix(JSONpackage) {
+    console.log("::: Pix Submitted :::");
+    await fetch(`http://localhost:8086/apiGeo?` +
+        `input=${JSONpackage['placeName']}&date=${JSONpackage['date']}`,{
+        method: 'GET',
+        credentials: 'same-origin',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
+
+async function submitWthr(JSONpackage) {
+    console.log("::: Weather Submitted :::");
+    await fetch(`http://localhost:8086/apiWeather?` +
+    `lat=${JSONpackage['lat']}&lon=${JSONpackage['lon']}`,{
+        method: 'GET',
+        credentials: 'same-origin',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
+
+
 async function handleSubmit(event) {
     event.preventDefault()
 
@@ -12,7 +39,7 @@ async function handleSubmit(event) {
     }
 
     console.log("::: Form Submitted :::")
-    await fetch('http://localhost:8086/api?input=' + formText + '&date=' + formDate, {
+    await fetch(`http://localhost:8086/apiGeo?input=${formText}&date=${formDate}`, {
         method: 'GET',
         credentials: 'same-origin',
         mode: 'cors',
@@ -22,10 +49,12 @@ async function handleSubmit(event) {
     })
     .then(res => res.json())
     .then(res => {
-        buildChild(res);
+        submitPix(res);
+        submitWthr(res);
+        console.log(res);
     }).catch((error) => {
-            console.log(error);
-        });
+        console.log(error);
+    });
 }
 
 

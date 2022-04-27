@@ -10,81 +10,105 @@ const pixakey = process.env.PIXA_KEY;
 class APIcall {
 
     constructor(input, date) {
+        console.log('::: Building Package :::');
         this.package = {};
-        this.package.input = input;
-        this.package.date = date;
+        this.package['input'] = input;
+        this.package['date'] = date;
+    }
 
-        async function geoCall() {
-            let url = 'http://api.geonames.org/postalCodeSearchJSON?placename=' +
-                `${this.input}&username=${geoUser}&maxRows=1`;
-            const response = await fetch(url, {
-                method: 'GET',
-            })
-            try {
-                const data = await response.json();
-                console.log(data);
-                return data;
-            }
-            catch(error) {
-                console.log('error', error);
-            }
-
-            return response;
+    async geoCall() {
+        let url = 'http://api.geonames.org/postalCodeSearchJSON?placename=' +
+            `${this.package['input']}&username=${geoUser}&maxRows=1`;
+        console.log('::: Sending Geo Package :::');
+        const response = await fetch(url, {
+            method: 'GET',
+        })
+        try {
+            const data = await response.json();
+            console.log(data);
+            return data;
+        }
+        catch(error) {
+            console.log('error', error);
         }
 
-        async function wthrCall() {
-            let url = 'https://api.weatherbit.io/v2.0/current?' +
-                `lat=${this.package.lat}&lon=-${this.package.lon}&key=${wthrkey}`;
-            const response = await fetch(url, {
-                method: 'GET',
-            })
-            try {
-                const data = await response.json();
-                console.log(data);
-                return data;
-            }
-            catch(error) {
-                console.log('error', error);
-            }
+        return response;
+    }
 
-            return response;
+    async wthrCall() {
+        let url = 'https://api.weatherbit.io/v2.0/current?' +
+            `lat=${this.package['lat']}&lon=-${this.package['lon']}&key=${wthrkey}`;
+        console.log('::: Sending Weather Package :::');
+        const response = await fetch(url, {
+            method: 'GET',
+        })
+        try {
+            const data = await response.json();
+            console.log(data);
+            return data;
+        } catch (e) {
+            console.log(`error: ${e}`);
         }
 
-        async function pixaCall() {
-            let url = 'https://pixabay.com/api/?' +
-                `q=${this.package.placeName}&key=${pixakey}`;
-            const response = await fetch(url, {
-                method: 'GET',
-            })
-            try {
-                const data = await response.json();
-                console.log(data);
-                return data;
-            }
-            catch(error) {
-                console.log('error', error);
-            }
+        return response;
+    }
 
-            return response;
-
+    async pixaCall() {
+        let url = 'https://pixabay.com/api/?' +
+            `q=${this.package.input}&key=${pixakey}`;
+        console.log('::: Sending Pix Package :::');
+        const response = await fetch(url, {
+            method: 'GET',
+        })
+        try {
+            const data = await response.json();
+            console.log(data);
+            return data;
+        } catch (e) {
+            console.log(`error: ${e}`);
         }
 
-        function setData(data) {
-            this.package.lat = data['postalCodes'][0]['lat'];
-            this.package.lon = data['postalCodes'][0]['lng'];
-            this.package.placeName = data['postalCodes'][0]['placeName'];
+        return response;
+    }
+
+    #setData(data) {
+        this.package['lat'] = data['postalCodes'][0]['lat'];
+        this.package['lon'] = data['postalCodes'][0]['lng'];
+        this.package['placeName'] = data['postalCodes'][0]['placeName'];
+    }
+
+    async getGeo() {
+        try {
+            await this.geoCall()
+                .then(data => this.#setData(data))
+        } catch (e) {
+            console.log(`error: ${e}`);
         }
 
-        this.getGeo = async function() {
-            try {
-                await geoCall()
-                    .then(data => setData(data))
-            } catch (e) {
-                console.log(`error: ${e}`);
-            }
+        return this.package;
+    }
 
-            return this.package;
+    async getWthr(lat, lon) {
+        this.package['lat'] = lat;
+        this.package['lon'] = lon;
+
+        try {
+            return await this.wthrCall()
+        } catch (e) {
+            console.log(`error: ${e}`);
         }
+
+        return this.package;
+    }
+
+    async getPix() {
+        try {
+            return await this.pixaCall()
+        } catch (e) {
+            console.log(`error: ${e}`);
+        }
+
+        return this.package;
     }
 }
 
