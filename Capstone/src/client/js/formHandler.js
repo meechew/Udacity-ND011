@@ -1,8 +1,8 @@
 import { buildChild } from "./BuildChild";
 
-async function submitPix(JSONpackage) {
-    console.log("::: Pix Submitted :::");
-    await fetch(`http://localhost:8086/apiGeo?` +
+async function submitPixa(JSONpackage) {
+    console.log("::: Pixa Submitted :::");
+    const res = await fetch(`http://localhost:8086/apiPixa?` +
         `input=${JSONpackage['placeName']}&date=${JSONpackage['date']}`,{
         method: 'GET',
         credentials: 'same-origin',
@@ -10,12 +10,16 @@ async function submitPix(JSONpackage) {
         headers: {
             'Content-Type': 'application/json'
         }
-    })
+    }).then(res => res.json()).then(res => {
+        buildChild(res['hits'][0], 'p')
+    }).catch((error) => {
+        console.log(error);
+    });
 }
 
 async function submitWthr(JSONpackage) {
     console.log("::: Weather Submitted :::");
-    await fetch(`http://localhost:8086/apiWeather?` +
+    const res = await fetch(`http://localhost:8086/apiWeather?` +
     `lat=${JSONpackage['lat']}&lon=${JSONpackage['lon']}`,{
         method: 'GET',
         credentials: 'same-origin',
@@ -23,7 +27,11 @@ async function submitWthr(JSONpackage) {
         headers: {
             'Content-Type': 'application/json'
         }
-    })
+    }).then(res => res.json()).then(res => {
+        buildChild(res['data'][0], 'wc')
+    }).catch((error) => {
+        console.log(error);
+    });
 }
 
 
@@ -46,12 +54,9 @@ async function handleSubmit(event) {
         headers: {
             'Content-Type': 'application/json'
         }
-    })
-    .then(res => res.json())
-    .then(res => {
-        submitPix(res);
+    }).then(res => res.json()).then(res => {
+        submitPixa(res);
         submitWthr(res);
-        console.log(res);
     }).catch((error) => {
         console.log(error);
     });

@@ -1,5 +1,4 @@
 const fetch = require( "node-fetch");
-const FormData = require('form-data');
 const dotenv = require('dotenv');
 dotenv.config();
 const geoUser = process.env.GEO_USER;
@@ -18,7 +17,7 @@ class APIcall {
 
     async geoCall() {
         let url = 'http://api.geonames.org/postalCodeSearchJSON?placename=' +
-            `${this.package['input']}&username=${geoUser}&maxRows=1`;
+            `${this.package['input']}&country=US&username=${geoUser}&maxRows=1`;
         console.log('::: Sending Geo Package :::');
         const response = await fetch(url, {
             method: 'GET',
@@ -37,8 +36,9 @@ class APIcall {
 
     async wthrCall() {
         let url = 'https://api.weatherbit.io/v2.0/current?' +
-            `lat=${this.package['lat']}&lon=-${this.package['lon']}&key=${wthrkey}`;
+            `lat=${this.package['lat']}&lon=${this.package['lon']}&key=${wthrkey}`;
         console.log('::: Sending Weather Package :::');
+        console.log(url)
         const response = await fetch(url, {
             method: 'GET',
         })
@@ -56,7 +56,7 @@ class APIcall {
     async pixaCall() {
         let url = 'https://pixabay.com/api/?' +
             `q=${this.package.input}&key=${pixakey}`;
-        console.log('::: Sending Pix Package :::');
+        console.log('::: Sending Pixa Package :::');
         const response = await fetch(url, {
             method: 'GET',
         })

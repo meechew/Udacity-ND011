@@ -1,6 +1,3 @@
-// Setup empty JS object to act as endpoint for all routes
-projectData = {};
-
 // Require Express to run server and routes
 const express = require('express');
 
@@ -33,8 +30,17 @@ app.get('/', (req, res) => {
     res.sendFile(path.resolve('dist/index.html'))
 })
 
+app.get('/*.js', (req, res) => {
+    res.sendFile(path.resolve('dist/' + req.path));
+})
+
+app.get('/styles/*.css', (req, res) => {
+    res.sendFile(path.resolve('src/client/' + req.path));
+})
+
 const APIcall = require('./APIcall.js');
-// GET geo data
+
+// GET Geo data
 app.get('/apiGeo', async (req, res) => {
     console.log(`GET /apiGeo contents:
     --input: ${req.query["input"]} 
@@ -43,17 +49,17 @@ app.get('/apiGeo', async (req, res) => {
     res.send(await api.getGeo());
 })
 
-// GET weather
+// GET Weather
 app.get('/apiWeather', async (req, res) => {
     console.log(`GET /weather contents: 
     --lat:   ${req.query["lat"]} 
     --lon:   ${req.query["lon"]} 
     --date:  ${req.query["date"]}`);
     const api = new APIcall('input', req.query['date']);
-    res.send(await api.getWthr(req.query["lat"], req.query["lat"]));
+    res.send(await api.getWthr(req.query["lat"], req.query["lon"]));
 });
 
-// GET Pix
+// GET Pixa
 app.get('/apiPixa', async (req, res) => {
     console.log(`GET /weather contents:
     --input: ${req.query["input"]} 
