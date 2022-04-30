@@ -38,6 +38,11 @@ app.get('/styles/*.css', (req, res) => {
     res.sendFile(path.resolve('src/client/' + req.path));
 })
 
+app.get('/logo', (req, res) => {
+    console.log('GET /logo');
+    res.sendFile(path.resolve('src/client/img/logo.png'))
+})
+
 const APIcall = require('./APIcall.js');
 
 // GET Geo data
