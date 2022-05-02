@@ -35,8 +35,15 @@ class APIcall {
     }
 
     async wthrCall() {
-        let url = 'https://api.weatherbit.io/v2.0/current?' +
-            `lat=${this.package['lat']}&lon=${this.package['lon']}&key=${wthrkey}`;
+        let url = '';
+        if (this.package.date) {
+            let url = 'https://api.weatherbit.io/v2.0/forecast/daily?' +
+                `lat=${this.package['lat']}&lon=${this.package['lon']}&key=${wthrkey}`;
+        }
+        else {
+            let url = 'https://api.weatherbit.io/v2.0/current?' +
+                `lat=${this.package['lat']}&lon=${this.package['lon']}&key=${wthrkey}`;
+        }
         console.log('::: Sending Weather Package :::');
         console.log(url)
         const response = await fetch(url, {

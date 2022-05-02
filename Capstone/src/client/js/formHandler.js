@@ -18,20 +18,40 @@ async function submitPixa(JSONpackage) {
 }
 
 async function submitWthr(JSONpackage) {
-    console.log("::: Weather Submitted :::");
-    const res = await fetch(`http://localhost:8086/apiWeather?` +
-    `lat=${JSONpackage['lat']}&lon=${JSONpackage['lon']}`,{
-        method: 'GET',
-        credentials: 'same-origin',
-        mode: 'cors',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).then(res => res.json()).then(res => {
-        buildChild(res['data'][0], 'wc')
-    }).catch((error) => {
-        console.log(error);
-    });
+    const week = 7 * 24 * 60 * 60 * 1000;
+    const future = new Date(Date.now().valueOf() + week);
+    if (Date(JSONpackage['date']) < future) {
+        console.log("::: Weather Submitted :::");
+        const res = await fetch(`http://localhost:8086/apiWeather?` +
+            `lat=${JSONpackage['lat']}&lon=${JSONpackage['lon']}`, {
+            method: 'GET',
+            credentials: 'same-origin',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json()).then(res => {
+            buildChild(res['data'][0], 'wc')
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+    else {
+        console.log("::: Weather Submitted :::");
+        const res = await fetch(`http://localhost:8086/apiWeather?` +
+            `lat=${JSONpackage['lat']}&lon=${JSONpackage['lon']}%data=${JSONpackage['date']}`, {
+            method: 'GET',
+            credentials: 'same-origin',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json()).then(res => {
+            buildChild(res['data'][0], 'wf')
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
 }
 
 

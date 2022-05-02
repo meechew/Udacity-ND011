@@ -66,7 +66,7 @@ app.get('/apiWeather', async (req, res) => {
 
 // GET Pixa
 app.get('/apiPixa', async (req, res) => {
-    console.log(`GET /weather contents:
+    console.log(`GET /Pixa contents:
     --input: ${req.query["input"]} 
     --date:  ${req.query["date"]}` );
     const api = new APIcall(req.query['input'], req.query['date']);

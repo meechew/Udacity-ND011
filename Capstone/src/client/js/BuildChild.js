@@ -16,6 +16,24 @@ function buildChild(jsonPackage, type) {
         resultsElm.appendChild(div);
     }
 
+    if (type === 'wf') {
+        const resultsElm = document.getElementById("wthr");
+        div.appendChild(document.createTextNode(`16-day forecast:`));
+        div.appendChild(document.createElement("br"));
+        jsonPackage.forEach(e => {
+            div.appendChild(document.createTextNode(e["datetime"]));
+            div.appendChild(document.createElement("br"));
+            div.appendChild(document.createTextNode(`High: ${e["high_temp"]}  Low: ${e["low_temp"]}`));
+            div.appendChild(document.createElement("br"));
+            div.appendChild(document.createTextNode(`${e["weather"]["description"]}`));
+            div.appendChild(document.createElement("br"));
+            div.appendChild(document.createTextNode(`Precipitation: ${e["pop"]}%`));
+            div.appendChild(document.createElement("br"));
+        })
+
+        resultsElm.appendChild(div);
+    }
+
     if (type === 'p') {
         const resultsElm = document.getElementById("pixa");
         resultsElm.appendChild(div);
