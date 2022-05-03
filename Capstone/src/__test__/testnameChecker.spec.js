@@ -1,23 +1,8 @@
-import  { checkForURL } from "../client";
 import  { handleSubmit } from "../client";
 import { buildChild } from "../client/js/BuildChild";
 const APIcall = require('../server/APIcall.js');
 require("babel-polyfill");
 
-
-describe("Testing truthiness of string input", () => {
-    test("Testing checkForURL() for valid URL", () => {
-        expect(checkForURL('http://')).toBeFalsy();
-        expect(checkForURL('HTTP://')).toBeFalsy();
-        expect(checkForURL('https://')).toBeFalsy();
-        expect(checkForURL('HTTPS://')).toBeFalsy();
-    });
-    test("Testing checkForURL() for invalid URL", () => {
-        for(let k = 0; k < 5 ; ++k ) {
-            expect(checkForURL(Math.random().toString(36).slice(2, 7))).toBeTruthy();
-        }
-    });
-});
 
 describe("Testing submission of forms", () => {
     const event = { preventDefault: () => {} };
