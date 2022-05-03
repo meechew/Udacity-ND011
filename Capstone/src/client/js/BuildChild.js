@@ -21,7 +21,7 @@ function buildChild(jsonPackage, type) {
         div.appendChild(document.createTextNode(`16-day forecast:`));
         div.appendChild(document.createElement("br"));
         jsonPackage.forEach(e => {
-            div.appendChild(document.createTextNode(e["datetime"]));
+            div.appendChild(document.createTextNode(e["valid_date"]));
             div.appendChild(document.createElement("br"));
             div.appendChild(document.createTextNode(`High: ${e["high_temp"]}  Low: ${e["low_temp"]}`));
             div.appendChild(document.createElement("br"));

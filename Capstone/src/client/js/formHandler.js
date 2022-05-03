@@ -20,7 +20,7 @@ async function submitPixa(JSONpackage) {
 async function submitWthr(JSONpackage) {
     const week = 7 * 24 * 60 * 60 * 1000;
     const future = new Date(Date.now().valueOf() + week);
-    if (Date(JSONpackage['date']) < future) {
+    if (new Date(JSONpackage['date']) < future) {
         console.log("::: Weather Submitted :::");
         const res = await fetch(`http://localhost:8086/apiWeather?` +
             `lat=${JSONpackage['lat']}&lon=${JSONpackage['lon']}`, {
@@ -39,7 +39,7 @@ async function submitWthr(JSONpackage) {
     else {
         console.log("::: Weather Submitted :::");
         const res = await fetch(`http://localhost:8086/apiWeather?` +
-            `lat=${JSONpackage['lat']}&lon=${JSONpackage['lon']}%data=${JSONpackage['date']}`, {
+            `lat=${JSONpackage['lat']}&lon=${JSONpackage['lon']}&date=${JSONpackage['date']}`, {
             method: 'GET',
             credentials: 'same-origin',
             mode: 'cors',
@@ -47,7 +47,7 @@ async function submitWthr(JSONpackage) {
                 'Content-Type': 'application/json'
             }
         }).then(res => res.json()).then(res => {
-            buildChild(res['data'][0], 'wf')
+            buildChild(res['data'], 'wf')
         }).catch((error) => {
             console.log(error);
         });

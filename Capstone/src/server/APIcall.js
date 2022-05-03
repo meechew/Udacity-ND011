@@ -37,11 +37,13 @@ class APIcall {
     async wthrCall() {
         let url = '';
         if (this.package.date) {
-            let url = 'https://api.weatherbit.io/v2.0/forecast/daily?' +
+            console.log('With date')
+            url = 'https://api.weatherbit.io/v2.0/forecast/daily?' +
                 `lat=${this.package['lat']}&lon=${this.package['lon']}&key=${wthrkey}`;
         }
         else {
-            let url = 'https://api.weatherbit.io/v2.0/current?' +
+            console.log('Without date')
+            url = 'https://api.weatherbit.io/v2.0/current?' +
                 `lat=${this.package['lat']}&lon=${this.package['lon']}&key=${wthrkey}`;
         }
         console.log('::: Sending Weather Package :::');
@@ -69,7 +71,6 @@ class APIcall {
         })
         try {
             const data = await response.json();
-            console.log(data);
             return data;
         } catch (e) {
             console.log(`error: ${e}`);
