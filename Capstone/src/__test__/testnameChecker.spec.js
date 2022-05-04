@@ -18,7 +18,7 @@ describe("Testing submission of forms", () => {
         } catch (e) {}
     });
     test("Testing handleSubmit() Happy path", async () => {
-        const refBody = '<input id="name" type="text" name="input" value="https://www.infoq.com/articles/testing-legacy-nodejs-app/">';
+        const refBody = '<input id="name" type="text" name="input" value="New York">';
         document.body.innerHTML = refBody;
         try {
             await handleSubmit()
@@ -53,19 +53,50 @@ describe("Testing testing JSON package interpretation and build of result elemen
 });
 
 describe("Testing API call to Meaning cloud", () => {
-    test("Testing dummy call()", async () => {
-        const mockAPIcall = new APIcall("");
+    const mockAPIcall = new APIcall("", "");
+    test("Testing dummy geoCall()", async () => {
         const refBody = {
-            status: {
-                code: "200",
-                msg: "missing required parameter(s): txt, url or doc",
-                credits: "0"
-            }
+            "postalCodes": [
+                {
+                    "adminCode2": "277",
+                    "adminCode1": "TX",
+                    "adminName2": "Lamar",
+                    "lng": -95.490539,
+                    "countryCode": "US",
+                    "postalCode": "75462",
+                    "adminName1": "Texas",
+                    "ISO3166-2": "TX",
+                    "placeName": "Paris",
+                    "lat": 33.680451
+                }
+            ]
         }
 
         try {
-            const response = await mockAPIcall.call()
+            await mockAPIcall.geoCall()
                 .then(response => expect(response).tobe(refBody))
+        } catch (e) {}
+    })
+
+    test("Testing dummy wthrCall()", async () => {
+        const refBody = {
+            "error": "Invalid Parameters supplied."
+        }
+
+        try {
+            await mockAPIcall.wthrCall()
+                .then(response => expect(response).tobe(refBody))
+        } catch (e) {}
+    })
+
+    test("Testing dummy pixaCall()", async () => {
+        const refBody = {
+            "totalHits": 500
+        }
+
+        try {
+            await mockAPIcall.geoCall()
+                .then(response => expect(response["totalHits"]).tobe(refBody["totalHits"]))
         } catch (e) {}
     })
 });
