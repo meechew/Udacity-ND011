@@ -1,6 +1,7 @@
 function buildChild(jsonPackage, type) {
     const div = document.createElement("div");
 
+    //Builds and attaches current weather elements
     if (type === 'wc') {
         const resultsElm = document.getElementById("wthr");
         div.appendChild(document.createTextNode(`Current weather:`));
@@ -16,6 +17,7 @@ function buildChild(jsonPackage, type) {
         resultsElm.appendChild(div);
     }
 
+    //Builds and attaches 16-day forecast elements
     if (type === 'wf') {
         const resultsElm = document.getElementById("wthr");
         div.appendChild(document.createTextNode(`16-day forecast:`));
@@ -34,6 +36,7 @@ function buildChild(jsonPackage, type) {
         resultsElm.appendChild(div);
     }
 
+    //Builds and attaches images elements
     if (type === 'p') {
         const resultsElm = document.getElementById("pixa");
         resultsElm.appendChild(div);

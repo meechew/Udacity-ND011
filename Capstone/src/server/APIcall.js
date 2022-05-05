@@ -15,6 +15,7 @@ class APIcall {
         this.package['date'] = date;
     }
 
+    // request location data
     async geoCall() {
         let url = 'http://api.geonames.org/postalCodeSearchJSON?placename=' +
             `${this.package['input']}&country=US&username=${geoUser}&maxRows=1`;
@@ -34,6 +35,7 @@ class APIcall {
         return response;
     }
 
+    // request weather data
     async wthrCall() {
         let url = '';
         if (this.package.date) {
@@ -62,6 +64,7 @@ class APIcall {
         return response;
     }
 
+    // request images
     async pixaCall() {
         let url = 'https://pixabay.com/api/?' +
             `q=${this.package.input}&key=${pixakey}`;

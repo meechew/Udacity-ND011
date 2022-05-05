@@ -29,29 +29,6 @@ describe("Testing submission of forms", () => {
     });
 });
 
-describe("Testing testing JSON package interpretation and build of result elements", () => {
-    test("Testing buildChild()", () => {
-        const dom = new Document();
-        const testPackage = {
-            agreement: 'DISAGREEMENT',
-            confidence: '94',
-            irony: 'NONIRONIC',
-            model: 'general_en',
-            score_tag: 'P',
-            sentence_list: [],
-            sentimented_entity_list: [],
-            status: { code: '0', msg: 'OK', credits: '1', remaining_credits: '19937' },
-            subjectivity: 'SUBJECTIVE'
-        }
-
-        const refElm = '<div id="results"><div>Argeement: DISAGREEMENT<br>Irony: NONIRONIC<br>Model: general_en<br>Score_tag: P<br>Subjectivity: SUBJECTIVE</div></div>';
-        document.body.innerHTML = '<div id="results"></div>';
-
-        buildChild(testPackage);
-        expect(document.body.innerHTML).toBe(refElm);
-    })
-});
-
 describe("Testing API call to Meaning cloud", () => {
     const mockAPIcall = new APIcall("", "");
     test("Testing dummy geoCall()", async () => {

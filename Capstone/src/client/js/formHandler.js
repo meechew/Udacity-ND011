@@ -1,5 +1,6 @@
 import { buildChild } from "./BuildChild";
 
+// Submits request for images and sends the results to be buildChild()
 async function submitPixa(JSONpackage) {
     console.log("::: Pixa Submitted :::");
     const res = await fetch(`http://localhost:8086/apiPixa?` +
@@ -17,9 +18,11 @@ async function submitPixa(JSONpackage) {
     });
 }
 
+// Submits request for weather and sends the results to be buildChild()
 async function submitWthr(JSONpackage) {
     const week = 7 * 24 * 60 * 60 * 1000;
     const future = new Date(Date.now().valueOf() + week);
+    // Submit for current weather
     if (new Date(JSONpackage['date']) < future) {
         console.log("::: Weather Submitted :::");
         const res = await fetch(`http://localhost:8086/apiWeather?` +
@@ -36,6 +39,7 @@ async function submitWthr(JSONpackage) {
             console.log(error);
         });
     }
+    //Submit for forecast
     else {
         console.log("::: Weather Submitted :::");
         const res = await fetch(`http://localhost:8086/apiWeather?` +
@@ -55,6 +59,7 @@ async function submitWthr(JSONpackage) {
 }
 
 
+// Submits for initial request
 async function handleSubmit(event) {
     event.preventDefault()
 
